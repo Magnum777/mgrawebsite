@@ -244,6 +244,35 @@
             color: rgba(255,255,255,0.4); font-size: 0.8rem;
         }
         
+        /* Net Schedule */
+        .net-schedule {
+            background: #fff; border-radius: 4px; padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        .net-schedule h3 { color: #e94560; font-size: 1.2rem; margin-bottom: 1rem; }
+        .net-day { margin-bottom: 1.5rem; }
+        .net-day:last-child { margin-bottom: 0; }
+        .net-day h4 { font-size: 1rem; color: #222; margin-bottom: 0.5rem; }
+        .net-item {
+            display: grid; grid-template-columns: 100px 1fr 120px 200px;
+            gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid #eee;
+            font-size: 0.9rem; align-items: center;
+        }
+        .net-item:last-child { border-bottom: none; }
+        .net-time { font-family: 'Courier New', monospace; font-weight: 600; color: #e94560; }
+        .net-name { font-weight: 600; color: #333; }
+        .net-freq { color: #666; font-size: 0.85rem; }
+        .net-host { color: #888; font-size: 0.85rem; text-align: right; }
+
+        /* Solar Widget */
+        .solar-widget {
+            background: #fff; border-radius: 4px; padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08); text-align: center;
+        }
+        .solar-widget img { max-width: 100%; height: auto; margin: 0.5rem 0; }
+        .solar-widget h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #222; }
+        .solar-widget p { font-size: 0.85rem; color: #666; margin: 0; }
+        
         /* Mobile */
         @media (max-width: 768px) {
             .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0;
@@ -271,6 +300,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#repeaters">Repeaters</a></li>
+            <li><a href="#nets">Nets</a></li>
             <li><a href="#events">Calendar</a></li>
             <li><a href="#photos">Photos</a></li>
             <li><a href="#links">Links</a></li>
@@ -299,6 +329,70 @@
                 <a href="https://www.facebook.com/WR4MG/" class="btn btn-facebook" target="_blank">Visit Us On Facebook</a>
                 <a href="#footer" class="btn btn-outline-light">Contact Us</a>
                 <a href="#links" class="btn btn-join">Join Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solar Conditions & Net Schedule -->
+    <section class="section" style="background: #f8f9fa; padding: 2rem 0;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                
+                <!-- Solar Widget -->
+                <div class="solar-widget">
+                    <h3>🌞 Solar Conditions</h3>
+                    <a href="https://www.hamqsl.com/solar.html" target="_blank">
+                        <img src="https://www.hamqsl.com/solar101vhf.php" alt="Solar Conditions" style="max-height: 200px;">
+                    </a>
+                    <p>Live propagation data from <a href="https://www.hamqsl.com/solar.html" target="_blank">HAMQSL</a></p>
+                </div>
+                
+                <!-- Quick Net Schedule -->
+                <div class="net-schedule">
+                    <h3>📻 Weekly Net Schedule</h3>
+                    
+                    <div class="net-day">
+                        <h4>Sunday</h4>
+                        <div class="net-item">
+                            <span class="net-time">19:00</span>
+                            <span class="net-name">MGRA Rag Chew Net</span>
+                            <span class="net-freq">147.300+</span>
+                            <span class="net-host">Net Control: WR4MG</span>
+                        </div>
+                        <div class="net-item">
+                            <span class="net-time">20:00</span>
+                            <span class="net-name">ARES Emergency Net</span>
+                            <span class="net-freq">146.670-</span>
+                            <span class="net-host">Net Control: WM4B</span>
+                        </div>
+                    </div>
+                    
+                    <div class="net-day">
+                        <h4>Wednesday</h4>
+                        <div class="net-item">
+                            <span class="net-time">19:30</span>
+                            <span class="net-name">Technical Talk Net</span>
+                            <span class="net-freq">442.900+</span>
+                            <span class="net-host">Net Control: Rotating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="net-day">
+                        <h4>Saturday>
+                        <div class="net-item">
+                            <span class="net-time">09:00</span>
+                            <span class="net-name">Testing Session</span>
+                            <span class="net-freq">2nd Saturday</span>
+                            <span class="net-host">Laurel VEC</span>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666; text-align: center;">
+                        All times local (Eastern). Check repeaters for last-minute changes. 
+                        <a href="nets.html">View full net schedule →</a>
+                    </p>
+                </div>
+                
             </div>
         </div>
     </section>
