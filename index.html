@@ -341,29 +341,6 @@
         .score-number { font-size: 2rem; font-weight: 700; color: #e94560; }
         .score-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); }
         
-        /* Tutorial Cards */
-        .tutorial-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
-        }
-        .tutorial-card {
-            background: #fff; border-radius: 4px; overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-        .tutorial-card:hover { transform: translateY(-4px); }
-        .tutorial-thumb {
-            height: 150px; background: linear-gradient(135deg, #1a1a2e, #e94560);
-            display: flex; align-items: center; justify-content: center; color: #fff;
-            font-size: 3rem;
-        }
-        .tutorial-content { padding: 1.5rem; }
-        .tutorial-content h4 { font-size: 1rem; margin-bottom: 0.5rem; }
-        .tutorial-content p { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
-        .tutorial-tag {
-            display: inline-block; padding: 0.2rem 0.6rem; background: #f0f0f0;
-            border-radius: 3px; font-size: 0.75rem; color: #666; margin-right: 0.5rem;
-        }
-        
         /* Mobile */
         @media (max-width: 768px) {
             .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0;
@@ -761,25 +738,6 @@
         </div>
     </section>
 
-                </div>
-                
-                <div class="link-card">
-                    <h4>📚 Informational Sites, Blogs, Misc.</h4>
-                    <ul>
-                        <li><a href="https://www.electronics-notes.com" target="_blank">Electronics Notes</a></li>
-                        <li><a href="http://myplace.frontier.com/~nb6z/" target="_blank">NB6Z Digital Modes</a></li>
-                        <li><a href="https://www.dxzone.com/catalog/Operating_Modes/Packet_Radio/" target="_blank">DXZone Packet Radio</a></li>
-                        <li><a href="http://www.n0hr.com/PocketDigi/PocketDigi_Tigertronics_Interface.htm" target="_blank">N0HR SignaLink</a></li>
-                        <li><a href="http://ki7f.com/packet.htm" target="_blank">KI7F What is Packet Radio</a></li>
-                        <li><a href="http://www.ac6v.com/" target="_blank">AC6V Ham Reference</a></li>
-                        <li><a href="https://www.allaboutcircuits.com/" target="_blank">AllAboutCircuits</a></li>
-                        <li><a href="https://w4cue.com/vendor.html" target="_blank">W4CUE Vendor List</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Live Repeater Activity -->
     <section id="activity" class="section">
         <div class="container">
@@ -857,90 +815,6 @@
         </div>
     </section>
 
-    <!-- Equipment Lending Library -->
-    <section id="equipment" class="section section-bg">
-        <div class="container">
-            <div class="section-header">
-                <h2>Equipment Lending Library</h2>
-                <p>Club gear available for members to borrow</p>
-            </div>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="status status-available">✓ Available</span>
-                    <h3>📻 Radios</h3>
-                    <ul>
-                        <li>
-                            <span class="item-name">Icom IC-705</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Yaesu FT-60R</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Baofeng UV-5R (x3)</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Kenwood TM-V71A</span>
-                            <span class="item-status status-borrowed">Borrowed</span>
-                        </li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">Borrow at monthly meetings. Contact treasurer to reserve.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="status status-available">✓ Available</span>
-                    <h3>📡 Antennas</h3>
-                    <ul>
-                        <li>
-                            <span class="item-name">EFHW 40m-10m</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Buddipole Portable</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">J-Pole 2m</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Yagi 3-element 2m</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">All antennas tested with antenna analyzer before lending.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="status status-available">✓ Available</span>
-                    <h3>🔧 Test Equipment</h3>
-                    <ul>
-                        <li>
-                            <span class="item-name">MFJ-269C Analyzer</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Oscilloscope (DSO)</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Power/SWR Meter</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Dummy Load 250W</span>
-                            <span class="item-status">Available</span>
-                        </li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">All equipment must be returned at next meeting. Damage = replacement cost.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Elmer Matchmaking -->
     <section id="elmer" class="section">
         <div class="container">
@@ -981,64 +855,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Digital Mode Tutorials -->
-    <section id="tutorials" class="section section-bg">
-        <div class="container">
-            <div class="section-header">
-                <h2>Digital Mode Tutorials</h2>
-                <p>Learn modern digital modes from MGRA members</p>
-            </div>
-            
-            <div class="tutorial-grid">
-                <div class="tutorial-card">
-                    <div class="tutorial-thumb">📻</div>
-                    <div class="tutorial-content">
-                        <span class="tutorial-tag">Beginner</span>
-                        <span class="tutorial-tag">FT8</span>
-                        <h4>Getting Started with FT8</h4>
-                        <p>Step-by-step setup of WSJT-X, configure your radio, and make your first FT8 contact.</p>
-                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Watch Video →</a>
-                    </div>
-                </div>
-                
-                <div class="tutorial-card">
-                    <div class="tutorial-thumb">📡</div>
-                    <div class="tutorial-content">
-                        <span class="tutorial-tag">Intermediate</span>
-                        <span class="tutorial-tag">JS8Call</span>
-                        <h4>JS8Call for Emergency Comms</h4>
-                        <p>Keyboard-to-keyboard messaging, auto-relay, and group messaging for ARES work.</p>
-                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Read Guide →</a>
-                    </div>
-                </div>
-                
-                <div class="tutorial-card">
-                    <div class="tutorial-thumb">🌐</div>
-                    <div class="tutorial-content">
-                        <span class="tutorial-tag">Advanced</span>
-                        <span class="tutorial-tag">DMR</span>
-                        <h4>DMR Setup &amp; Codeplugs</h4>
-                        <p>Programming DMR radios, building codeplugs, and linking to BrandMeister networks.</p>
-                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Download PDF →</a>
-                    </div>
-                </div>
-                
-                <div class="tutorial-card">
-                    <div class="tutorial-thumb">📊</div>
-                    <div class="tutorial-content">
-                        <span class="tutorial-tag">Beginner</span>
-                        <span class="tutorial-tag">APRS</span>
-                        <h4>APRS for Tracking &amp; Messaging</h4>
-                        <p>Set up APRS for position reporting, weather stations, and text messaging.</p>
-                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Watch Video →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Field Day Scoreboard -->
+<!-- Field Day Scoreboard -->
     <section id="fieldday" class="section">
         <div class="container">
             <div class="section-header">
