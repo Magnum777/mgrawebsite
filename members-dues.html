@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Dues — MGRA Members</title>
+    <link rel="icon" href="https://wr4mg.us/img/favicon.png">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #333; line-height: 1.6; background: #fff; font-size: 15px;
+        }
+        a { color: #007bff; text-decoration: none; transition: all 0.3s; }
+        a:hover { color: #0056b3; }
+        h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; margin-bottom: 1rem; color: #222; }
+        
+        /* Nav */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(0,0,0,0.9); padding: 0.75rem 2rem;
+            display: flex; align-items: center; justify-content: space-between; height: 56px;
+        }
+        .navbar-brand { color: #fff; font-size: 1.25rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .navbar-brand:hover { color: #fff; }
+        .nav-menu { display: flex; gap: 0; list-style: none; align-items: center; }
+        .nav-menu > li > a {
+            color: rgba(255,255,255,0.8); font-size: 0.85rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px; padding: 1rem 0.75rem; display: block;
+        }
+        .nav-menu > li > a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0; background: #fff;
+            min-width: 200px; box-shadow: 0 2px 10px rgba(0,0,0,0.15); border-radius: 0 0 4px 4px;
+            list-style: none; padding: 0.5rem 0;
+        }
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu li a { color: #333; padding: 0.6rem 1.25rem; display: block; font-size: 0.9rem; text-transform: none; }
+        .dropdown-menu li a:hover { color: #007bff; background: #f8f9fa; }
+        .mobile-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.25rem; cursor: pointer; }
+        
+        /* Hero */
+        .hero {
+            min-height: 40vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            padding: 6rem 1rem 3rem; color: #fff;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .hero p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+        
+        /* Content */
+        .section { padding: 4rem 0; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 1rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* Dues Cards */
+        .dues-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+            max-width: 1000px; margin: 0 auto;
+        }
+        .dues-card {
+            background: #fff; border-radius: 4px; padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08); text-align: center;
+            border-top: 4px solid #e94560;
+        }
+        .dues-card.featured { border-top-color: #e94560; transform: scale(1.02); }
+        .dues-card h3 { color: #222; font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .price { font-size: 2.5rem; font-weight: 700; color: #e94560; margin: 1rem 0; }
+        .price span { font-size: 1rem; color: #666; font-weight: 400; }
+        .dues-card ul { list-style: none; text-align: left; margin: 1.5rem 0; }
+        .dues-card li { padding: 0.4rem 0; border-bottom: 1px solid #eee; font-size: 0.9rem; color: #555; }
+        .dues-card li:last-child { border-bottom: none; }
+        .dues-card li::before { content: '✓'; color: #28a745; font-weight: bold; margin-right: 0.5rem; }
+        
+        .btn {
+            display: inline-block; padding: 0.75rem 2rem; border-radius: 50px;
+            font-weight: 600; font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s; border: none; cursor: pointer;
+            width: 100%;
+        }
+        .btn-venmo { background: #008CFF; color: #fff; }
+        .btn-venmo:hover { background: #0070cc; color: #fff; }
+        .btn-outline { background: transparent; color: #333; border: 2px solid #ccc; }
+        .btn-outline:hover { background: #f8f9fa; }
+        
+        /* Alternate Payment */
+        .alt-payment {
+            max-width: 700px; margin: 3rem auto 0; background: #f8f9fa;
+            padding: 2rem; border-radius: 4px; text-align: center;
+        }
+        .alt-payment h3 { margin-bottom: 1rem; }
+        .alt-payment ul { list-style: none; text-align: left; max-width: 400px; margin: 0 auto; }
+        .alt-payment li { padding: 0.5rem 0; }
+        
+        /* Form */
+        .record-form {
+            max-width: 700px; margin: 3rem auto 0; background: #fff;
+            padding: 2rem; border-radius: 4px; box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        
+        /* Footer */
+        .site-footer {
+            background: #1a1a2e; color: rgba(255,255,255,0.7); padding: 3rem 0 1.5rem; margin-top: 3rem;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+            max-width: 1140px; margin: 0 auto; padding: 0 1rem 2rem;
+        }
+        .footer-col h4 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
+        .footer-col a { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .footer-col a:hover { color: #fff; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.5rem; }
+        .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+        
+        @media (max-width: 768px) {
+            .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0; background: rgba(0,0,0,0.95); flex-direction: column; padding: 1rem; }
+            .nav-menu.active { display: flex; }
+            .mobile-toggle { display: block; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">MGRA</a>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#repeaters">Repeaters</a></li>
+            <li><a href="index.html#events">Calendar</a></li>
+            <li><a href="index.html#photos">Photos</a></li>
+            <li><a href="index.html#links">Links</a></li>
+            <li class="dropdown">
+                <a href="#">Members ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Member Directory</a></li>
+                    <li><a href="members-dues.html">Pay Dues</a></li>
+                    <li><a href="#">Meeting Minutes</a></li>
+                    <li><a href="#">Club Documents</a></li>
+                </ul>
+            </li>
+            <li><a href="index.html#footer">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Pay Your Annual Dues</h1>
+            <p>Support the Middle Georgia Radio Association and keep the repeaters on the air</p>
+        </div>
+    </section>
+
+    <!-- Dues Options -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Membership Options</h2>
+                <p>Choose the plan that works for you</p>
+            </div>
+            
+            <div class="dues-grid">
+                <div class="dues-card">
+                    <h3>Individual</h3>
+                    <div class="price">$25<span> / year</span></div>
+                    <ul>
+                        <li>Full voting membership</li>
+                        <li>Access to club repeaters</li>
+                        <li>Monthly newsletter</li>
+                        <li>Testing session access</li>
+                        <li>Field Day participation</li>
+                        <li>Technical support</li>
+                    </ul>
+                    <a href="https://venmo.com/WR4MG?txn=pay&amount=25&note=Individual%20Membership%20Dues" class="btn btn-venmo" target="_blank">Pay $25 with Venmo</a>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">Include your callsign in the payment note</p>
+                </div>
+                
+                <div class="dues-card featured">
+                    <h3>Family</h3>
+                    <div class="price">$40<span> / year</span></div>
+                    <ul>
+                        <li>Everything in Individual</li>
+                        <li>Covers household members</li>
+                        <li>Spouse + children under 18</li>
+                        <li>Shared callsign privileges</li>
+                        <li>Priority event registration</li>
+                        <li>Club merchandise discounts</li>
+                    </ul>
+                    <a href="https://venmo.com/WR4MG?txn=pay&amount=40&note=Family%20Membership%20Dues" class="btn btn-venmo" target="_blank">Pay $40 with Venmo</a>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">Include primary callsign + family members</p>
+                </div>
+                
+                <div class="dues-card">
+                    <h3>Student / Senior</h3>
+                    <div class="price">$15<span> / year</span></div>
+                    <ul>
+                        <li>Full voting membership</li>
+                        <li>Access to club repeaters</li>
+                        <li>Monthly newsletter</li>
+                        <li>Testing session access</li>
+                        <li>Field Day participation</li>
+                        <li>Technical support</li>
+                    </ul>
+                    <a href="https://venmo.com/WR4MG?txn=pay&amount=15&note=Student-Senior%20Dues" class="btn btn-venmo" target="_blank">Pay $15 with Venmo</a>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">Valid student ID or 65+ required</p>
+                </div>
+            </div>
+            
+            <!-- Alternate Payment -->
+            <div class="alt-payment">
+                <h3>Other Payment Methods</h3>
+                <p>Don't use Venmo? You can also pay by:</p>
+                <ul>
+                    <li>💵 <strong>Cash</strong> — at any monthly meeting</li>
+                    <li>✉️ <strong>Check</strong> — mail to P.O. Box 10528, Warner Robins, GA 31095</li>
+                    <li>💳 <strong>PayPal</strong> — <a href="mailto:getmorehams@wr4mg.us">email us for a link</a></li>
+                </ul>
+            </div>
+            
+            <!-- Record Form -->
+            <div class="record-form">
+                <h3 style="text-align: center; margin-bottom: 1rem;">📋 Payment Record Form</h3>
+                <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;">Already paid? Let us know so we can update our records.</p>
+                
+                <form id="duesForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Callsign</label>
+                            <input type="text" placeholder="e.g., WR4MG">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Membership Type *</label>
+                            <select required>
+                                <option value="">Select...</option>
+                                <option value="individual">Individual ($25)</option>
+                                <option value="family">Family ($40)</option>
+                                <option value="student_senior">Student / Senior ($15)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Method *</label>
+                            <select required>
+                                <option value="">Select...</option>
+                                <option value="venmo">Venmo</option>
+                                <option value="cash">Cash</option>
+                                <option value="check">Check</option>
+                                <option value="paypal">PayPal</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Notes (optional)</label>
+                        <textarea rows="3" placeholder="Family members, payment date, etc."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="background: #28a745; color: #fff;">Submit Payment Record</button>
+                </form>
+                
+                <div id="formSuccess" style="display: none; margin-top: 1rem; padding: 1rem; background: #d4edda; border-radius: 4px; color: #155724; text-align: center;">
+                    ✅ Thank you! Your payment record has been submitted.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/WR4MG/" target="_blank">📘 Facebook</a></li>
+                    <li>📮 P.O. Box 10528, Warner Robins, GA 31095</li>
+                    <li>📧 <a href="mailto:getmorehams@wr4mg.us">getmorehams@wr4mg.us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#about">About MGRA</a></li>
+                    <li><a href="index.html#repeaters">Repeaters</a></li>
+                    <li><a href="index.html#events">Calendar</a></li>
+                    <li><a href="index.html#links">Links</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Meeting Info</h4>
+                <p><strong>When:</strong> 3rd Thursday of every month, 7:00 PM</p>
+                <p><strong>Where:</strong> Warner Robins Church of Christ</p>
+                <p><strong>Testing:</strong> 2nd Saturday, 9:00 AM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2023 Copyright Greg Colburn (N3BYR). All Rights Reserved — Respective Logos and Information is the Property of MGRA</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+        
+        document.getElementById('duesForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('formSuccess').style.display = 'block';
+            this.reset();
+            document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+
+</body>
+</html>

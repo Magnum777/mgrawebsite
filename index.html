@@ -4,693 +4,571 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGRA - Middle Georgia Radio Association</title>
+    <link rel="icon" href="https://wr4mg.us/img/favicon.png">
     <style>
-        :root {
-            --primary: #1a365d;
-            --primary-dark: #0f2440;
-            --secondary: #c53030;
-            --accent: #ed8936;
-            --text: #2d3748;
-            --text-light: #718096;
-            --bg: #ffffff;
-            --bg-light: #f7fafc;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-        }
+        /* Reset & Base - mimicking original Bootstrap feel */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: var(--text);
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #333;
             line-height: 1.6;
-            background: var(--bg);
+            background: #fff;
+            font-size: 15px;
         }
-        a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
-        a:hover { color: var(--secondary); }
-        h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+        a { color: #007bff; text-decoration: none; transition: all 0.3s; }
+        a:hover { color: #0056b3; text-decoration: none; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 600; line-height: 1.3; margin-bottom: 1rem; color: #222; }
         p { margin-bottom: 1rem; }
-        img { max-width: 100%; height: auto; display: block; }
-
-        /* Navigation */
-        .main-nav {
+        img { max-width: 100%; height: auto; }
+        
+        /* Navigation - dark navbar like original */
+        .navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(26, 54, 93, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0 2rem;
-            height: 60px;
+            background: rgba(0,0,0,0.9);
+            padding: 0.75rem 2rem;
             display: flex; align-items: center; justify-content: space-between;
+            height: 56px;
         }
-        .nav-brand {
-            color: white; font-size: 1.4rem; font-weight: 700; letter-spacing: 1px;
+        .navbar-brand {
+            color: #fff; font-size: 1.25rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .nav-brand span { color: var(--accent); }
-        .nav-links {
-            display: flex; gap: 2rem; list-style: none;
+        .navbar-brand:hover { color: #fff; }
+        .nav-menu {
+            display: flex; gap: 0; list-style: none; align-items: center;
         }
-        .nav-links a {
-            color: rgba(255,255,255,0.85); font-size: 0.95rem; font-weight: 500;
+        .nav-menu > li {
+            position: relative;
+        }
+        .nav-menu > li > a {
+            color: rgba(255,255,255,0.8); font-size: 0.85rem; font-weight: 600;
             text-transform: uppercase; letter-spacing: 0.5px;
+            padding: 1rem 0.75rem; display: block;
         }
-        .nav-links a:hover { color: white; }
-        .mobile-menu-btn {
-            display: none; background: none; border: none; color: white;
-            font-size: 1.5rem; cursor: pointer;
+        .nav-menu > li > a:hover, .nav-menu > li.active > a {
+            color: #fff; background: rgba(255,255,255,0.1);
         }
-
-        /* Hero */
-        .hero {
+        
+        /* Dropdown */
+        .nav-menu .dropdown {
+            position: relative;
+        }
+        .dropdown-menu {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: #fff; min-width: 200px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            border-radius: 0 0 4px 4px; list-style: none; padding: 0.5rem 0;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu li a {
+            color: #333; padding: 0.6rem 1.25rem; display: block; font-size: 0.9rem;
+            text-transform: none; letter-spacing: normal;
+        }
+        .dropdown-menu li a:hover {
+            color: #007bff; background: #f8f9fa;
+        }
+        
+        .mobile-toggle {
+            display: none; background: none; border: none; color: #fff;
+            font-size: 1.25rem; cursor: pointer;
+        }
+        
+        /* Hero Section - matches original dark gradient */
+        #home {
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+            text-align: center; padding: 6rem 1rem 4rem; position: relative;
         }
-        .hero::before {
+        #home::before {
             content: ''; position: absolute; inset: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="60" cy="10" r="0.8" fill="rgba(255,255,255,0.05)"/></svg>');
-            opacity: 0.5;
+            background: url('https://wr4mg.us/img/MGRA.gif') center/300px no-repeat;
+            opacity: 0.05;
         }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; }
-        .hero h1 {
-            color: white; font-size: 3.5rem; margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .hero-content { position: relative; z-index: 2; }
+        .hero-content h1 {
+            color: #fff; font-size: 3.5rem; font-weight: 700;
+            margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 3px;
         }
-        .hero .call-sign {
-            color: var(--accent); font-size: 2.5rem; font-weight: 300;
-            letter-spacing: 8px; margin-bottom: 2rem; display: block;
+        .hero-content .call-sign {
+            color: #e94560; font-size: 3rem; font-weight: 300;
+            letter-spacing: 12px; display: block; margin-bottom: 2rem;
         }
-        .hero-buttons {
-            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-            margin-top: 2rem;
+        .hero-content p {
+            color: rgba(255,255,255,0.7); font-size: 1.1rem; max-width: 600px;
+            margin: 0 auto 2rem;
         }
         .btn {
-            display: inline-block; padding: 0.875rem 2rem;
-            border-radius: 8px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1px; font-size: 0.9rem; transition: all 0.3s; border: 2px solid transparent;
-            cursor: pointer;
+            display: inline-block; padding: 0.75rem 2rem; border-radius: 50px;
+            font-weight: 600; font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s; border: 2px solid transparent;
+            cursor: pointer; margin: 0 0.5rem;
         }
-        .btn-primary {
-            background: var(--secondary); color: white; border-color: var(--secondary);
+        .btn-facebook {
+            background: #4267B2; color: #fff; border-color: #4267B2;
         }
-        .btn-primary:hover { background: #9b2c2c; border-color: #9b2c2c; color: white; }
-        .btn-outline {
-            background: transparent; color: white; border-color: rgba(255,255,255,0.5);
+        .btn-facebook:hover { background: #365899; color: #fff; }
+        .btn-outline-light {
+            background: transparent; color: #fff; border-color: rgba(255,255,255,0.5);
         }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; color: white; }
-        .btn-accent {
-            background: var(--accent); color: white; border-color: var(--accent);
+        .btn-outline-light:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .btn-join {
+            background: #e94560; color: #fff; border-color: #e94560;
         }
-        .btn-accent:hover { background: #c05621; border-color: #c05621; color: white; }
-
-        /* Sections */
-        section { padding: 5rem 2rem; }
-        .section-title {
-            text-align: center; font-size: 2.5rem; color: var(--primary);
-            margin-bottom: 0.5rem;
+        .btn-join:hover { background: #c73e54; color: #fff; }
+        
+        /* Section styling */
+        .section {
+            padding: 4rem 0;
         }
-        .section-subtitle {
-            text-align: center; color: var(--text-light); margin-bottom: 3rem; font-size: 1.1rem;
+        .section-bg { background: #f8f9fa; }
+        .container {
+            max-width: 1140px; margin: 0 auto; padding: 0 1rem;
         }
-        .section-alt { background: var(--bg-light); }
-        .container { max-width: 1200px; margin: 0 auto; }
-
+        .section-header {
+            text-align: center; margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2rem; color: #222; text-transform: uppercase;
+            letter-spacing: 2px; position: relative; padding-bottom: 1rem;
+        }
+        .section-header h2::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 3px; background: #e94560;
+        }
+        .section-header p {
+            color: #666; margin-top: 1rem;
+        }
+        
         /* About */
         .about-content {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+            display: grid; grid-template-columns: 1fr 300px; gap: 3rem;
         }
-        .about-text { font-size: 1.05rem; }
-        .about-text p { margin-bottom: 1.25rem; }
+        .about-text p {
+            margin-bottom: 1.25rem; color: #555; line-height: 1.8;
+        }
         .about-sidebar {
-            background: white; padding: 2rem; border-radius: 12px;
-            box-shadow: var(--shadow); border-left: 4px solid var(--secondary);
+            background: #fff; padding: 1.5rem; border-radius: 4px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: fit-content;
         }
-        .about-sidebar h3 { color: var(--secondary); margin-bottom: 1rem; font-size: 1.2rem; }
-        .about-sidebar p { font-size: 0.95rem; margin-bottom: 0.75rem; }
-        .about-sidebar a { font-weight: 600; }
-
-        /* Repeaters */
-        .repeater-table {
-            width: 100%; border-collapse: collapse;
-            background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: var(--shadow);
+        .about-sidebar h4 {
+            color: #e94560; font-size: 1.1rem; margin-bottom: 1rem;
+            padding-bottom: 0.5rem; border-bottom: 2px solid #f0f0f0;
         }
-        .repeater-table th {
-            background: var(--primary); color: white; padding: 1rem;
-            text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+        .about-sidebar p { font-size: 0.9rem; color: #666; margin-bottom: 0.75rem; }
+        
+        /* Repeaters Table */
+        .table-responsive { overflow-x: auto; }
+        table {
+            width: 100%; border-collapse: collapse; background: #fff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
         }
-        .repeater-table td {
-            padding: 1rem; border-bottom: 1px solid var(--border);
-        }
-        .repeater-table tr:last-child td { border-bottom: none; }
-        .repeater-table tr:hover { background: var(--bg-light); }
-        .freq { font-family: 'Courier New', monospace; font-weight: 700; color: var(--secondary); font-size: 1.1rem; }
-        .pl-note { font-size: 0.85rem; color: var(--text-light); }
-
+        thead { background: #1a1a2e; color: #fff; }
+        th, td { padding: 0.875rem 1rem; text-align: left; }
+        th { font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+        tbody tr { border-bottom: 1px solid #eee; }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #f8f9fa; }
+        .freq { font-family: 'Courier New', monospace; font-weight: 700; color: #e94560; }
+        
         /* Events */
         .events-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
         }
-        .event-card {
-            background: white; border-radius: 12px; padding: 2rem;
-            box-shadow: var(--shadow); border-top: 4px solid var(--accent);
-            transition: transform 0.3s, box-shadow 0.3s;
+        .event-box {
+            background: #fff; padding: 2rem; border-radius: 4px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #e94560;
         }
-        .event-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-        .event-card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
-        .event-card p { margin-bottom: 1rem; font-size: 0.95rem; }
-        .event-card .event-meta {
-            display: flex; align-items: center; gap: 0.5rem;
-            color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;
+        .event-box h3 {
+            font-size: 1.15rem; margin-bottom: 1rem; color: #222;
         }
-
+        .event-box p { color: #555; font-size: 0.95rem; margin-bottom: 0.75rem; }
+        
         /* Photos */
         .photo-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;
         }
         .photo-item {
-            position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4/3;
-            cursor: pointer;
+            position: relative; border-radius: 4px; overflow: hidden; aspect-ratio: 4/3;
         }
         .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
         .photo-item:hover img { transform: scale(1.05); }
         .photo-overlay {
             position: absolute; inset: 0; background: rgba(0,0,0,0.6);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s; color: #fff; text-align: center; padding: 1rem;
         }
         .photo-item:hover .photo-overlay { opacity: 1; }
-        .photo-overlay span { color: white; font-weight: 600; }
-
+        .photo-overlay h4 { color: #fff; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .photo-overlay span { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
+        
         /* Links */
         .links-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
         }
-        .link-category {
-            background: white; border-radius: 12px; padding: 1.5rem;
-            box-shadow: var(--shadow);
+        .link-card {
+            background: #fff; padding: 1.5rem; border-radius: 4px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
         }
-        .link-category h4 {
-            color: var(--primary); font-size: 1.1rem; margin-bottom: 1rem;
-            padding-bottom: 0.5rem; border-bottom: 2px solid var(--border);
+        .link-card h4 {
+            font-size: 1rem; color: #222; margin-bottom: 1rem;
+            padding-bottom: 0.5rem; border-bottom: 2px solid #f0f0f0;
         }
-        .link-category ul { list-style: none; }
-        .link-category li { margin-bottom: 0.75rem; }
-        .link-category a {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-size: 0.95rem; padding: 0.25rem 0;
+        .link-card ul { list-style: none; }
+        .link-card li { margin-bottom: 0.5rem; }
+        .link-card a { font-size: 0.9rem; color: #007bff; }
+        .link-card a:hover { color: #0056b3; }
+        .link-card a::before {
+            content: '›'; color: #e94560; font-weight: bold; margin-right: 0.5rem;
         }
-        .link-category a::before {
-            content: '→'; color: var(--accent); font-weight: bold;
-        }
-
+        
         /* Footer */
         .site-footer {
-            background: var(--primary-dark); color: rgba(255,255,255,0.8);
-            padding: 4rem 2rem 2rem;
+            background: #1a1a2e; color: rgba(255,255,255,0.7); padding: 3rem 0 1.5rem;
         }
         .footer-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;
-            max-width: 1200px; margin: 0 auto 3rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+            max-width: 1140px; margin: 0 auto; padding: 0 1rem 2rem;
         }
-        .footer-col h4 { color: white; margin-bottom: 1rem; }
-        .footer-col p, .footer-col a { color: rgba(255,255,255,0.7); font-size: 0.95rem; }
-        .footer-col a:hover { color: white; }
+        .footer-col h4 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
+        .footer-col p, .footer-col a { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .footer-col a:hover { color: #fff; }
         .footer-col ul { list-style: none; }
         .footer-col li { margin-bottom: 0.5rem; }
         .footer-bottom {
-            text-align: center; padding-top: 2rem;
+            text-align: center; padding-top: 1.5rem;
             border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.5); font-size: 0.85rem;
+            color: rgba(255,255,255,0.4); font-size: 0.8rem;
         }
-
-        /* Dues Page */
-        .dues-hero {
-            min-height: 50vh; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            padding: 6rem 2rem 3rem; color: white;
-        }
-        .dues-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .dues-hero p { font-size: 1.1rem; opacity: 0.9; }
-
-        .dues-options {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
-            max-width: 1000px; margin: 0 auto; padding: 3rem 2rem;
-        }
-        .dues-card {
-            background: white; border-radius: 16px; padding: 2.5rem;
-            box-shadow: var(--shadow); text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s; position: relative;
-            border: 2px solid transparent;
-        }
-        .dues-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
-        .dues-card.featured { border-color: var(--accent); }
-        .dues-card .badge {
-            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            background: var(--accent); color: white; padding: 0.25rem 1rem;
-            border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
-        }
-        .dues-card h3 { color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .dues-card .price {
-            font-size: 3rem; font-weight: 700; color: var(--secondary);
-            margin: 1rem 0;
-        }
-        .dues-card .price span { font-size: 1rem; color: var(--text-light); font-weight: 400; }
-        .dues-card ul { list-style: none; text-align: left; margin: 1.5rem 0; }
-        .dues-card li {
-            padding: 0.5rem 0; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        .dues-card li::before { content: '✓'; color: var(--accent); font-weight: bold; }
-
-        /* Venmo */
-        .venmo-btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: #008CFF; color: white; padding: 1rem 2rem;
-            border-radius: 8px; font-weight: 600; font-size: 1rem;
-            transition: background 0.3s; border: none; cursor: pointer;
-            width: 100%; justify-content: center;
-        }
-        .venmo-btn:hover { background: #0070cc; color: white; }
-
-        /* Tab Navigation */
-        .tab-nav {
-            display: flex; justify-content: center; gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: white; border: 2px solid var(--border);
-            border-radius: 8px; cursor: pointer;
-            font-weight: 600; color: var(--text);
-            transition: all 0.3s;
-        }
-        .tab-btn:hover { border-color: var(--primary); }
-        .tab-btn.active {
-            background: var(--primary); color: white; border-color: var(--primary);
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
+        
         /* Mobile */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero .call-sign { font-size: 1.8rem; letter-spacing: 4px; }
+            .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0;
+                background: rgba(0,0,0,0.95); flex-direction: column; padding: 1rem;
+            }
+            .nav-menu.active { display: flex; }
+            .nav-menu > li > a { padding: 0.75rem 1rem; }
+            .dropdown-menu { position: static; box-shadow: none; background: #333; }
+            .dropdown-menu li a { color: rgba(255,255,255,0.8); }
+            .mobile-toggle { display: block; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content .call-sign { font-size: 2rem; letter-spacing: 4px; }
             .about-content { grid-template-columns: 1fr; }
-            .repeater-table { font-size: 0.85rem; }
-            .repeater-table th, .repeater-table td { padding: 0.75rem 0.5rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 280px; }
-            section { padding: 3rem 1.5rem; }
+            .btn { display: block; margin: 0.5rem auto; max-width: 280px; }
         }
     </style>
 </head>
 <body id="page-top">
 
     <!-- Navigation -->
-    <nav class="main-nav">
-        <a href="#page-top" class="nav-brand">MGRA <span>WR4MG</span></a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links" id="navMenu">
+    <nav class="navbar">
+        <a href="#page-top" class="navbar-brand">MGRA</a>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-menu" id="navMenu">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#repeaters">Repeaters</a></li>
             <li><a href="#events">Calendar</a></li>
             <li><a href="#photos">Photos</a></li>
             <li><a href="#links">Links</a></li>
-            <li><a href="#dues">Pay Dues</a></li>
+            <li class="dropdown">
+                <a href="#">Members ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="members.html">Member Directory</a></li>
+                    <li><a href="members-dues.html">Pay Dues</a></li>
+                    <li><a href="#">Meeting Minutes</a></li>
+                    <li><a href="#">Club Documents</a></li>
+                </ul>
+            </li>
             <li><a href="#footer">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Tab Navigation for Sections -->
-    <div style="position: fixed; top: 60px; left: 0; right: 0; background: white; z-index: 999; padding: 1rem; box-shadow: var(--shadow);">
-        <div class="tab-nav">
-            <button class="tab-btn active" onclick="showTab('home-tab')">Home</button>
-            <button class="tab-btn" onclick="showTab('dues-tab')">Pay Dues</button>
+    <!-- Hero -->
+    <section id="home">
+        <div class="hero-content">
+            <!-- Using original MGRA logo from wr4mg.us -->
+            <img src="https://wr4mg.us/img/MGRA.gif" alt="MGRA Logo" style="max-width: 300px; margin: 0 auto 2rem; opacity: 0.9;">
+            <h1>Middle Georgia Radio Association</h1>
+            <span class="call-sign">WR4MG</span>
+            <p>A different kind of radio club — focused on technical and operational radio fundamentals since our founding.</p>
+            <div>
+                <a href="https://www.facebook.com/WR4MG/" class="btn btn-facebook" target="_blank">Visit Us On Facebook</a>
+                <a href="#footer" class="btn btn-outline-light">Contact Us</a>
+                <a href="#links" class="btn btn-join">Join Us</a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- HOME TAB -->
-    <div id="home-tab" class="tab-content active">
-        
-        <!-- Hero -->
-        <header class="hero" id="home" style="margin-top: 60px;">
-            <div class="hero-content">
-                <h1>Middle Georgia Radio Association</h1>
-                <span class="call-sign">WR4MG</span>
-                <div class="hero-buttons">
-                    <a href="https://www.facebook.com/WR4MG/" class="btn btn-primary" target="_blank">Visit Us On Facebook</a>
-                    <a href="#footer" class="btn btn-outline">Contact Us</a>
-                    <a href="#links" class="btn btn-accent">Join Us</a>
-                </div>
+    <!-- About -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>About the MGRA</h2>
             </div>
-        </header>
-
-        <!-- About -->
-        <section id="about">
-            <div class="container">
-                <h2 class="section-title">About the MGRA</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p><strong>NOTE:</strong> MGRA meets the third Thursday of every month at 7pm at the Warner Robins Church of Christ. If this is your first meeting you can reach out to us on Facebook or Email for more information.</p>
-                        <p>The Middle Georgia Radio Association was formed as a different kind of radio club, one focused on technical and operational radio fundamentals. We offer monthly testing sessions at <strong>zero cost</strong> every month if you want to earn your amateur radio operator license!</p>
-                        <p>Our main mission is to provide an educational environment to the public along with ham radio operators throughout the area to learn, experiment, and enjoy the art of amateur radio.</p>
-                        <p>We are active on the air, on social media, and on email to keep everyone in the know. During the week you will find the MGRA repeaters the most active with technical discussions in Middle Georgia.</p>
-                        <p>We hope that you can find a place with us &mdash; to nurture the hobby of radio communication so that it may be enjoyed and thrive for many more generations.</p>
-                    </div>
-                    <div class="about-sidebar">
-                        <h3>New to Ham Radio?</h3>
-                        <p>✓ Monthly testing sessions &mdash; <strong>FREE</strong></p>
-                        <p>✓ Technical seminars &amp; public education</p>
-                        <p>✓ Operating events &amp; Field Day</p>
-                        <p>✓ Emergency communication prep</p>
-                        <p>✓ Station setup assistance</p>
-                        <p style="margin-top: 1.5rem;"><a href="#dues" class="btn btn-primary" onclick="showTab('dues-tab')">Pay Annual Dues &rarr;</a></p>
-                    </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>NOTE:</strong> MGRA meets the <strong>third Thursday of every month at 7pm</strong> at the Warner Robins Church of Christ. If this is your first meeting you can reach out to us on <a href="https://www.facebook.com/WR4MG/" target="_blank">Facebook</a> or <a href="mailto:getmorehams@wr4mg.us">Email</a> for more information.</p>
+                    
+                    <p>The Middle Georgia Radio Association was formed as a different kind of radio club, one focused on <strong>technical and operational radio fundamentals</strong>. We offer monthly testing sessions at <strong>zero cost</strong> every month if you want to earn your amateur radio operator license! Check out our <a href="#events">calendar</a> for events, testing, and other engagements.</p>
+                    
+                    <p>Our main mission is to provide an educational environment to the public along with ham radio operators throughout the area to <strong>learn, experiment, and enjoy</strong> the art of amateur radio. We offer technical seminars, public education/exposure, operating events, field day, special events, emergency communication prep, and help with station setups. We are active on the air, on social media, and on email to keep everyone in the know. During the week you will find the MGRA repeaters the most active with technical discussions in Middle Georgia and provide an easy link to reaching out to us.</p>
+                    
+                    <p>We hope that you can find a place with us — to nurture the hobby of radio communication so that it may be enjoyed and thrive for many more generations to enjoy.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Repeaters -->
-        <section id="repeaters" class="section-alt">
-            <div class="container">
-                <h2 class="section-title">Middle Georgia Repeaters</h2>
-                <p class="section-subtitle">Active repeaters in the Middle Georgia area</p>
                 
-                <table class="repeater-table">
+                <div class="about-sidebar">
+                    <h4>New to Ham Radio?</h4>
+                    <p>✓ Monthly testing sessions — <strong>FREE</strong></p>
+                    <p>✓ Technical seminars &amp; public education</p>
+                    <p>✓ Operating events &amp; Field Day</p>
+                    <p>✓ Emergency communication prep</p>
+                    <p>✓ Station setup assistance</p>
+                    <p>✓ Active on social media &amp; email</p>
+                    <p style="margin-top: 1rem;"><a href="https://www.facebook.com/WR4MG/" target="_blank" class="btn btn-facebook" style="display:block; text-align:center;">Visit Facebook →</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repeaters -->
+    <section id="repeaters" class="section section-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2>Middle Georgia Repeaters</h2>
+                <p>Active repeaters in the Middle Georgia area</p>
+            </div>
+            
+            <div class="table-responsive">
+                <table>
                     <thead>
-                        <tr><th>Frequency</th><th>PL Tone</th><th>Location</th><th>Callsign &amp; Info</th></tr>
+                        <tr>
+                            <th>Frequency</th>
+                            <th>PL Tone</th>
+                            <th>Location</th>
+                            <th>Callsign &amp; Info</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr><td class="freq">147.300+</td><td>107.2</td><td>Centerville, GA</td><td>WR4MG &mdash; Echolink node WR4MG-R</td></tr>
-                        <tr><td class="freq">146.955-</td><td>107.2</td><td>Perry, GA</td><td>WR4MG &mdash; Echolink node WR4MG-L</td></tr>
+                        <tr><td class="freq">147.300+</td><td>107.2</td><td>Centerville, GA</td><td>WR4MG — Echolink node WR4MG-R</td></tr>
+                        <tr><td class="freq">146.955-</td><td>107.2</td><td>Perry, GA</td><td>WR4MG — Echolink node WR4MG-L</td></tr>
                         <tr><td class="freq">442.900+</td><td>107.2</td><td>Warner Robins, GA</td><td>WR4MG</td></tr>
-                        <tr><td class="freq">440.575+</td><td>82.5*</td><td>Houston County EOC</td><td>WY4EMA &mdash; DMR, DSTAR, and FM</td></tr>
+                        <tr><td class="freq">440.575+</td><td>82.5*</td><td>Houston County EOC</td><td>WY4EMA — DMR, DSTAR, and FM (PL for FM)</td></tr>
                         <tr><td class="freq">444.950+</td><td>107.2</td><td>Butler, GA</td><td>WR4MG</td></tr>
                         <tr><td class="freq">147.195+</td><td>107.2</td><td>Butler, GA</td><td>WR4MG</td></tr>
                         <tr><td class="freq">147.180+</td><td>No tone</td><td>Warner Robins, GA</td><td>WB4BDP</td></tr>
                         <tr><td class="freq">146.850-</td><td>82.5</td><td>Warner Robins, GA</td><td>WA4ORT</td></tr>
-                        <tr><td class="freq">146.670-</td><td>82.5</td><td>Warner Robins, GA</td><td>WM4B &mdash; Intertie Link active for ARES Nets</td></tr>
+                        <tr><td class="freq">146.670-</td><td>82.5</td><td>Warner Robins, GA</td><td>WM4B — Intertie Link active for ARES Nets</td></tr>
                         <tr><td class="freq">443.150+</td><td>82.5</td><td>Warner Robins, GA</td><td>WM4B</td></tr>
                         <tr><td class="freq">145.290-</td><td>82.5</td><td>Byron, GA</td><td>WX4PCH</td></tr>
                     </tbody>
                 </table>
-                <p class="pl-note" style="text-align: center; margin-top: 1rem;">* PL tone 82.5 for FM mode on WY4EMA</p>
-                <p style="text-align: center; margin-top: 1rem;">
-                    <a href="http://www.kk4ib.org/RPTR&FREQ.htm" target="_blank" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">More Repeaters in the Area &rarr;</a>
-                </p>
             </div>
-        </section>
+            <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.85rem;">* PL tone 82.5 for FM mode on WY4EMA</p>
+            <p style="text-align: center; margin-top: 1rem;">
+                <a href="http://www.kk4ib.org/RPTR&FREQ.htm" target="_blank" class="btn btn-outline-light" style="color: #333; border-color: #ccc;">More Repeaters in the Area →</a>
+            </p>
+        </div>
+    </section>
 
-        <!-- Events -->
-        <section id="events">
-            <div class="container">
-                <h2 class="section-title">Calendar / Events</h2>
-                <p class="section-subtitle">Upcoming events, testing sessions, and activities</p>
+    <!-- Events -->
+    <section id="events" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Calendar / Events</h2>
+                <p>Testing sessions, field days, and club activities</p>
+            </div>
+            
+            <div class="events-grid">
+                <div class="event-box">
+                    <h3>📝 Testing Sessions</h3>
+                    <p>MGRA provides Amateur Radio license testing <strong>at no cost</strong> every month. Test sessions are held on the second Saturday at the Church of Christ (1947 Watson Blvd., Warner Robins) at 9:00am.</p>
+                    <p>You must register with us <a href="mailto:getmorehams@wr4mg.us">by email</a> with your name and FRN to ensure seats are available and the session isn't moved or cancelled.</p>
+                    <p><strong>Note:</strong> MGRA does not charge any fee to test, however the FCC requires a $35 payment to process a passing score once your test has been processed by the FCC. This fee is collected by the FCC and <strong>IS NOT collected by MGRA</strong>.</p>
+                    <a href="https://www.laurelvec.com" target="_blank" class="btn btn-outline-light" style="color: #333; border-color: #ccc;">Official Laurel VEC →</a>
+                </div>
                 
-                <div class="events-grid">
-                    <div class="event-card">
-                        <h3>📝 Testing Sessions</h3>
-                        <div class="event-meta">📅 Every month &mdash; Second Saturday</div>
-                        <p>MGRA provides Amateur Radio license testing <strong>at no cost</strong>. Held at the Church of Christ (1947 Watson Blvd., Warner Robins) at 9:00am.</p>
-                        <p>Register <a href="mailto:getmorehams@wr4mg.us">by email</a> with your name and FRN.</p>
-                        <a href="https://www.laurelvec.com" target="_blank" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">Official Laurel VEC &rarr;</a>
+                <div class="event-box">
+                    <h3>📅 Big Events</h3>
+                    <p><strong>Winter Field Day</strong> — January</p>
+                    <p><strong>ARRL Field Day</strong> — June</p>
+                    <p><strong>Forsyth Ham Fest</strong> — May</p>
+                    <p><strong>Medical Center 5k Fun Run</strong> — September</p>
+                    <p><strong>Warner Robins Swap Meet</strong> — October</p>
+                    <p><strong>Christmas Parade</strong> — December</p>
+                    <p><strong>Annual MGRA/CGARC Christmas Dinner</strong> — December</p>
+                    <p style="margin-top: 1rem;"><a href="https://docs.google.com/document/d/11JutbwxfePIYkcbcQ16dbp7dnF1bCQMgw4a86PgYbiU/edit?usp=sharing" target="_blank" class="btn btn-outline-light" style="color: #333; border-color: #ccc;">Additional Events List →</a></p>
+                </div>
+                
+                <div class="event-box">
+                    <h3>📆 Full Calendar</h3>
+                    <p>View the complete MGRA calendar for all events, testing sessions, and other engagements.</p>
+                    <p>Our calendar includes club meetings, testing sessions, field days, swap meets, and special events throughout the year.</p>
+                    <a href="https://calendar.google.com/calendar/embed?src=fd3h7tohut97btcfflsdmpdda4%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" class="btn btn-join">View Full Calendar →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photos -->
+    <section id="photos" class="section section-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2>MGRA Photos</h2>
+                <p>Pictures from recent past events</p>
+            </div>
+            
+            <div class="photo-grid">
+                <div class="photo-item">
+                    <img src="https://wr4mg.us/img/gallery/n4ary_antenna_jan22.jpg" alt="N4ARY Tree Fishing" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>N4ARY Tree Fishing</h4>
+                        <span>January 2022</span>
                     </div>
-                    
-                    <div class="event-card">
-                        <h3>📅 Big Events</h3>
-                        <div class="event-meta">Annual calendar highlights</div>
-                        <p><strong>Winter Field Day</strong> &mdash; January</p>
-                        <p><strong>ARRL Field Day</strong> &mdash; June</p>
-                        <p><strong>Forsyth Ham Fest</strong> &mdash; May</p>
-                        <p><strong>Medical Center 5k Fun Run</strong> &mdash; September</p>
-                        <p><strong>Warner Robins Swap Meet</strong> &mdash; October</p>
-                        <p><strong>Christmas Parade</strong> &mdash; December</p>
+                </div>
+                <div class="photo-item">
+                    <img src="https://wr4mg.us/img/gallery/WFD_setupJan22.jpg" alt="Winter Field Day Setup" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>Winter Field Day</h4>
+                        <span>January 2022</span>
                     </div>
-                    
-                    <div class="event-card">
-                        <h3>📆 Full Calendar</h3>
-                        <div class="event-meta">Google Calendar integration</div>
-                        <p>View the complete MGRA calendar for all events, testing sessions, and other engagements.</p>
-                        <a href="https://calendar.google.com/calendar/embed?src=fd3h7tohut97btcfflsdmpdda4%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" class="btn btn-primary">View Full Calendar &rarr;</a>
+                </div>
+                <div class="photo-item">
+                    <img src="https://wr4mg.us/img/gallery/WFD_setup2.jpg" alt="Pulling Coax" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>Pulling Coax</h4>
+                        <span>January 2022</span>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://wr4mg.us/img/gallery/CQWFD_ic705.jpg" alt="Logging Contacts" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>Logging Contacts!</h4>
+                        <span>IC-705 — January 2022</span>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://wr4mg.us/img/gallery/CQWFD_Jan22.jpg" alt="Winter Field Day" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>Winter Field Day</h4>
+                        <span>January 2022</span>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://wr4mg.us/img/gallery/CQWFD1_Jan22.jpg" alt="Winter Field Day" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>Winter Field Day</h4>
+                        <span>January 2022</span>
                     </div>
                 </div>
             </div>
-        </section>
+            
+            <p style="text-align: center; margin-top: 2rem;">
+                <a href="photo_gallery.html" class="btn btn-outline-light" style="color: #333; border-color: #ccc;">View Full Photo Gallery →</a>
+            </p>
+        </div>
+    </section>
 
-        <!-- Photos -->
-        <section id="photos" class="section-alt">
-            <div class="container">
-                <h2 class="section-title">MGRA Photos</h2>
-                <p class="section-subtitle">Pictures from recent past events</p>
-                
-                <div class="photo-grid">
-                    <div class="photo-item">
-                        <div style="background: linear-gradient(135deg, #1a365d, #2c5282); width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">Winter Field Day 2022</div>
-                    </div>
-                    <div class="photo-item">
-                        <div style="background: linear-gradient(135deg, #c53030, #e53e3e); width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">Antenna Work</div>
-                    </div>
-                    <div class="photo-item">
-                        <div style="background: linear-gradient(135deg, #2f855a, #48bb78); width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">Logging Contacts</div>
-                    </div>
-                    <div class="photo-item">
-                        <div style="background: linear-gradient(135deg, #744210, #d69e2e); width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">Club Meeting</div>
-                    </div>
-                    <div class="photo-item">
-                        <div style="background: linear-gradient(135deg, #553c9a, #805ad5); width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">Equipment Setup</div>
-                    </div>
-                    <div class="photo-item">
-                        <div style="background: linear-gradient(135deg, #702459, #b83280); width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">Field Day Ops</div>
-                    </div>
-                </div>
+    <!-- Links -->
+    <section id="links" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Useful Links</h2>
+                <p>Resources for ham radio operators and those interested in joining</p>
             </div>
-        </section>
-
-        <!-- Links -->
-        <section id="links">
-            <div class="container">
-                <h2 class="section-title">Useful Links</h2>
-                <p class="section-subtitle">Resources for ham radio operators and those interested in joining</p>
-                
-                <div class="links-grid">
-                    <div class="link-category">
-                        <h4>📋 Join Us</h4>
-                        <ul>
-                            <li><a href="#">Membership Form (PDF)</a></li>
-                            <li><a href="#dues" onclick="showTab('dues-tab')">Pay Annual Dues</a></li>
-                            <li><a href="https://www.facebook.com/WR4MG/" target="_blank">Facebook Page</a></li>
-                            <li><a href="mailto:getmorehams@wr4mg.us">Email Us</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="link-category">
-                        <h4>📝 Testing Resources</h4>
-                        <ul>
-                            <li><a href="https://www.youtube.com/watch?v=7a4doKEPN5M" target="_blank">How to Get Your FRN (Video)</a></li>
-                            <li><a href="#">Bring Form 605 to Testing</a></li>
-                            <li><a href="http://www.hamradiolicenseexam.com/index.html" target="_blank">Ham Test Online (Prep)</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="link-category">
-                        <h4>📡 Groups &amp; Directories</h4>
-                        <ul>
-                            <li><a href="https://www.arrl.org" target="_blank">ARRL Website</a></li>
-                            <li><a href="https://www.arrl-ga.org/" target="_blank">Georgia ARRL</a></li>
-                            <li><a href="https://www.fcc.gov/wireless/universal-licensing-system" target="_blank">FCC ULS</a></li>
-                            <li><a href="https://gaares.org/" target="_blank">Georgia ARES</a></li>
-                            <li><a href="https://parksontheair.com/" target="_blank">Parks on the Air</a></li>
-                            <li><a href="https://www.qrz.com" target="_blank">QRZ Website</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="link-category">
-                        <h4>🌤️ WX &amp; Propagation</h4>
-                        <ul>
-                            <li><a href="https://www.hwn.org/" target="_blank">Hurricane Watch Net</a></li>
-                            <li><a href="https://www.swpc.noaa.gov/products/alerts-watches-and-warnings" target="_blank">NOAA Solar/Space Alerts</a></li>
-                            <li><a href="https://www.lightningmaps.org" target="_blank">Lightning Maps</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- DUES TAB -->
-    <div id="dues-tab" class="tab-content">
-        
-        <!-- Dues Hero -->
-        <section class="dues-hero" style="margin-top: 60px;">
-            <div class="hero-content">
-                <h1>Pay Your Annual Dues</h1>
-                <p>Support the Middle Georgia Radio Association and keep the repeaters on the air</p>
-            </div>
-        </section>
-
-        <!-- Dues Options -->
-        <section class="section-alt" style="padding: 4rem 2rem;">
-            <div class="container">
-                <h2 class="section-title" style="margin-bottom: 0.5rem;">Membership Options</h2>
-                <p class="section-subtitle" style="margin-bottom: 3rem;">Choose the plan that works for you</p>
-                
-                <div class="dues-options">
-                    <div class="dues-card">
-                        <h3>Individual</h3>
-                        <div class="price">$25<span>/year</span></div>
-                        <ul>
-                            <li>Full voting membership</li>
-                            <li>Access to club repeaters</li>
-                            <li>Monthly newsletter</li>
-                            <li>Testing session access</li>
-                            <li>Field Day participation</li>
-                            <li>Technical support</li>
-                        </ul>
-                        <a href="https://venmo.com/WR4MG?txn=pay&amount=25&note=Individual%20Membership%20Dues%202025" 
-                           class="venmo-btn" target="_blank" rel="noopener">
-                            Pay $25 with Venmo
-                        </a>
-                        <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">
-                            Note: Include your callsign in the payment note
-                        </p>
-                    </div>
-                    
-                    <div class="dues-card featured">
-                        <div class="badge">Popular</div>
-                        <h3>Family</h3>
-                        <div class="price">$40<span>/year</span></div>
-                        <ul>
-                            <li>Everything in Individual</li>
-                            <li>Covers household members</li>
-                            <li>Spouse + children under 18</li>
-                            <li>Shared callsign privileges</li>
-                            <li>Priority event registration</li>
-                            <li>Club merchandise discounts</li>
-                        </ul>
-                        <a href="https://venmo.com/WR4MG?txn=pay&amount=40&note=Family%20Membership%20Dues%202025" 
-                           class="venmo-btn" target="_blank" rel="noopener">
-                            Pay $40 with Venmo
-                        </a>
-                        <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">
-                            Include primary callsign + family members
-                        </p>
-                    </div>
-                    
-                    <div class="dues-card">
-                        <h3>Student / Senior</h3>
-                        <div class="price">$15<span>/year</span></div>
-                        <ul>
-                            <li>Full voting membership</li>
-                            <li>Access to club repeaters</li>
-                            <li>Monthly newsletter</li>
-                            <li>Testing session access</li>
-                            <li>Field Day participation</li>
-                            <li>Technical support</li>
-                        </ul>
-                        <a href="https://venmo.com/WR4MG?txn=pay&amount=15&note=Student-Senior%20Dues%202025" 
-                           class="venmo-btn" target="_blank" rel="noopener">
-                            Pay $15 with Venmo
-                        </a>
-                        <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">
-                            Valid student ID or 65+ required
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Other Payment Methods -->
-                <div style="max-width: 700px; margin: 3rem auto 0; text-align: center; background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow);">
-                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Other Payment Methods</h3>
-                    <p style="margin-bottom: 1rem;">Don't use Venmo? You can also pay by:</p>
-                    <ul style="list-style: none; text-align: left; max-width: 400px; margin: 0 auto;">
-                        <li style="padding: 0.5rem 0;">💵 <strong>Cash</strong> &mdash; at any monthly meeting</li>
-                        <li style="padding: 0.5rem 0;">✉️ <strong>Check</strong> &mdash; mail to P.O. Box 10528, Warner Robins, GA 31095</li>
-                        <li style="padding: 0.5rem 0;">💳 <strong>PayPal</strong> &mdash; <a href="mailto:getmorehams@wr4mg.us">email us for link</a></li>
+            
+            <div class="links-grid">
+                <div class="link-card">
+                    <h4>📋 Interested in joining us?</h4>
+                    <ul>
+                        <li><a href="https://wr4mg.us/docs/MGRA_Membership_Interactive.pdf" target="_blank">Membership Form (PDF)</a></li>
+                        <li><a href="https://www.facebook.com/WR4MG/" target="_blank">Visit Us On Facebook</a></li>
+                        <li><a href="mailto:getmorehams@wr4mg.us">Email Us</a></li>
                     </ul>
                 </div>
                 
-                <!-- Payment Record Form -->
-                <div style="max-width: 700px; margin: 3rem auto 0; background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow);">
-                    <h3 style="color: var(--primary); margin-bottom: 1rem; text-align: center;">📋 Payment Record Form</h3>
-                    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--text-light); font-size: 0.95rem;">Already paid? Let us know so we can update our records.</p>
-                    
-                    <form id="duesForm" style="display: grid; gap: 1rem;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary);">Name *</label>
-                                <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem;">
-                            </div>
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary);">Callsign</label>
-                                <input type="text" placeholder="e.g., WR4MG" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; text-transform: uppercase;">
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary);">Email *</label>
-                            <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem;">
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary);">Membership Type *</label>
-                                <select required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: white;">
-                                    <option value="">Select...</option>
-                                    <option value="individual">Individual ($25)</option>
-                                    <option value="family">Family ($40)</option>
-                                    <option value="student_senior">Student / Senior ($15)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary);">Payment Method *</label>
-                                <select required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: white;">
-                                    <option value="">Select...</option>
-                                    <option value="venmo">Venmo</option>
-                                    <option value="cash">Cash</option>
-                                    <option value="check">Check</option>
-                                    <option value="paypal">PayPal</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary);">Notes (optional)</label>
-                            <textarea rows="3" placeholder="Family members, payment date, etc." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; resize: vertical;"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="width: 100%; border: none; cursor: pointer; margin-top: 0.5rem;">
-                            Submit Payment Record
-                        </button>
-                    </form>
-                    
-                    <div id="formSuccess" style="display: none; margin-top: 1rem; padding: 1rem; background: #c6f6d5; border-radius: 8px; color: #22543d; text-align: center;">
-                        ✅ Thank you! Your payment record has been submitted.
-                    </div>
+                <div class="link-card">
+                    <h4>📝 Testing? Do these...</h4>
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=7a4doKEPN5M" target="_blank">Watch: How to get your FRN</a></li>
+                        <li><a href="https://wr4mg.us/docs/getFRN.pdf" target="_blank">Get FRN Instructions (PDF)</a></li>
+                        <li><a href="https://wr4mg.us/docs/form605.pdf" target="_blank">Bring Form 605 to Testing</a></li>
+                        <li><a href="mailto:getmorehams@wr4mg.us">Register for Test Session</a></li>
+                        <li><a href="http://www.hamradiolicenseexam.com/index.html" target="_blank">Ham Test Online (Prep)</a></li>
+                    </ul>
+                </div>
+                
+                <div class="link-card">
+                    <h4>📡 Groups, Directories, Nets, Charts</h4>
+                    <ul>
+                        <li><a href="https://wr4mg.us/docs/WXspotINFO.png" target="_blank">Skywarn/Peachtree City WX Info</a></li>
+                        <li><a href="https://www.arrl.org/band-plan" target="_blank">Amateur Radio Band Plan Charts</a></li>
+                        <li><a href="https://www.arrl.org" target="_blank">ARRL Website</a></li>
+                        <li><a href="https://www.arrl-ga.org/" target="_blank">Georgia ARRL</a></li>
+                        <li><a href="https://www.arrl-ga.org/operations/Georgia%20Nets.pdf" target="_blank">Georgia ARRL Nets</a></li>
+                        <li><a href="http://www.peachstateintertie.com/" target="_blank">Peach State Intertie</a></li>
+                        <li><a href="https://www.fcc.gov/wireless/universal-licensing-system" target="_blank">FCC Universal Licensing System</a></li>
+                        <li><a href="https://gaares.org/" target="_blank">Georgia ARES</a></li>
+                        <li><a href="https://parksontheair.com/" target="_blank">Parks on the Air</a></li>
+                        <li><a href="https://www.qrz.com" target="_blank">QRZ Website</a></li>
+                        <li><a href="https://k7fry.com/grid/" target="_blank">K7FRY Grid Locator</a></li>
+                    </ul>
+                </div>
+                
+                <div class="link-card">
+                    <h4>🌤️ WX Forecasts &amp; Propagation</h4>
+                    <ul>
+                        <li><a href="https://www.hwn.org/" target="_blank">Hurricane Watch Net (14.325MHz)</a></li>
+                        <li><a href="https://www.dxinfocentre.com/tropo.html" target="_blank">Tropospheric Ducting Forecast</a></li>
+                        <li><a href="https://www.swpc.noaa.gov/products/alerts-watches-and-warnings" target="_blank">NOAA Solar/Space Alerts</a></li>
+                        <li><a href="https://www.spaceweatherlive.com/en/solar-activity.html" target="_blank">Space Weather Live</a></li>
+                        <li><a href="https://hamwaves.com/ionograms/en/index.html" target="_blank">ON4AA Ionogram Info</a></li>
+                        <li><a href="http://aprs.mennolink.org/" target="_blank">APRS VHF Propagation Map</a></li>
+                        <li><a href="https://www.lightningmaps.org" target="_blank">Lightning Maps</a></li>
+                    </ul>
+                </div>
+                
+                <div class="link-card">
+                    <h4>📚 Informational Sites, Blogs, Misc.</h4>
+                    <ul>
+                        <li><a href="https://www.electronics-notes.com" target="_blank">Electronics Notes</a></li>
+                        <li><a href="http://myplace.frontier.com/~nb6z/" target="_blank">NB6Z Digital Modes</a></li>
+                        <li><a href="https://www.dxzone.com/catalog/Operating_Modes/Packet_Radio/" target="_blank">DXZone Packet Radio</a></li>
+                        <li><a href="http://www.n0hr.com/PocketDigi/PocketDigi_Tigertronics_Interface.htm" target="_blank">N0HR SignaLink</a></li>
+                        <li><a href="http://ki7f.com/packet.htm" target="_blank">KI7F What is Packet Radio</a></li>
+                        <li><a href="http://www.ac6v.com/" target="_blank">AC6V Ham Reference</a></li>
+                        <li><a href="https://www.allaboutcircuits.com/" target="_blank">AllAboutCircuits</a></li>
+                        <li><a href="https://w4cue.com/vendor.html" target="_blank">W4CUE Vendor List</a></li>
+                    </ul>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="site-footer" id="footer">
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>Contact Us</h4>
+                <p>Reach out for educational, technical, or general questions. Don't currently have a license? No Problem!</p>
                 <ul>
-                    <li><a href="https://www.facebook.com/WR4MG/" target="_blank">📘 Facebook</a></li>
-                    <li>📧 <a href="mailto:getmorehams@wr4mg.us">getmorehams@wr4mg.us</a></li>
+                    <li><a href="https://www.facebook.com/WR4MG/" target="_blank">📘 Visit Us On Facebook</a></li>
                     <li>📮 P.O. Box 10528, Warner Robins, GA 31095</li>
+                    <li>📧 <a href="mailto:getmorehams@wr4mg.us">getmorehams@wr4mg.us</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#about" onclick="showTab('home-tab')">About MGRA</a></li>
-                    <li><a href="#repeaters" onclick="showTab('home-tab')">Repeaters</a></li>
-                    <li><a href="#events" onclick="showTab('home-tab')">Calendar</a></li>
-                    <li><a href="#dues" onclick="showTab('dues-tab')">Pay Dues</a></li>
+                    <li><a href="#about">About MGRA</a></li>
+                    <li><a href="#repeaters">Repeaters</a></li>
+                    <li><a href="#events">Calendar</a></li>
+                    <li><a href="#links">Links</a></li>
+                    <li><a href="members-dues.html">Pay Dues</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -701,56 +579,30 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Middle Georgia Radio Association (WR4MG). All Rights Reserved.</p>
+            <p>© 2023 Copyright Greg Colburn (N3BYR). All Rights Reserved — Respective Logos and Information is the Property of MGRA</p>
         </div>
     </footer>
 
     <script>
-        // Tab switching
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        // Mobile menu
         function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            if (window.getComputedStyle(menu).display === 'none') {
-                menu.style.display = 'flex';
-                menu.style.flexDirection = 'column';
-                menu.style.position = 'absolute';
-                menu.style.top = '60px';
-                menu.style.left = '0';
-                menu.style.right = '0';
-                menu.style.background = 'rgba(26, 54, 93, 0.98)';
-                menu.style.padding = '1rem 2rem';
-            } else {
-                menu.style.display = 'none';
-            }
+            document.getElementById('navMenu').classList.toggle('active');
         }
-
-        // Form submission
-        document.getElementById('duesForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('formSuccess').style.display = 'block';
-            this.reset();
-            document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        // Smooth scroll
+        
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href !== '#' && !href.startsWith('#dues') && !href.startsWith('#footer')) {
+                if (href !== '#') {
                     e.preventDefault();
                     const target = document.querySelector(href);
-                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('navMenu').classList.remove('active');
+                    }
                 }
             });
         });
     </script>
+
 </body>
 </html>
