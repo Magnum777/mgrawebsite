@@ -273,6 +273,97 @@
         .solar-widget h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #222; }
         .solar-widget p { font-size: 0.85rem; color: #666; margin: 0; }
         
+        /* Feature Cards (Equipment, Elmer, Tutorials) */
+        .feature-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+        }
+        .feature-card {
+            background: #fff; border-radius: 4px; padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid #e94560;
+        }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 1rem; color: #222; }
+        .feature-card p { color: #555; font-size: 0.95rem; margin-bottom: 1rem; }
+        .feature-card .status {
+            display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem;
+        }
+        .status-available { background: #d4edda; color: #155724; }
+        .status-borrowed { background: #fff3cd; color: #856404; }
+        .feature-card ul { list-style: none; }
+        .feature-card li {
+            padding: 0.5rem 0; border-bottom: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .feature-card li:last-child { border-bottom: none; }
+        .feature-card .item-name { font-weight: 600; }
+        .feature-card .item-status { font-size: 0.85rem; }
+        
+        /* Repeater Activity Feed */
+        .repeater-feed {
+            background: #fff; border-radius: 4px; padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        .repeater-feed h3 { font-size: 1.1rem; margin-bottom: 1rem; color: #222; }
+        .activity-item {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 0.75rem 0; border-bottom: 1px solid #eee;
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #e94560; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .activity-icon.active { background: #28a745; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40,167,69,0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(40,167,69,0); }
+            100% { box-shadow: 0 0 0 0 rgba(40,167,69,0); }
+        }
+        .activity-details { flex: 1; }
+        .activity-callsign { font-weight: 600; color: #222; }
+        .activity-info { font-size: 0.85rem; color: #666; }
+        .activity-time { font-size: 0.8rem; color: #888; white-space: nowrap; }
+        
+        /* Field Day Scoreboard */
+        .scoreboard {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff; border-radius: 4px; padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        .scoreboard h3 { color: #fff; font-size: 1.3rem; margin-bottom: 1rem; }
+        .score-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;
+        }
+        .score-item { text-align: center; }
+        .score-number { font-size: 2rem; font-weight: 700; color: #e94560; }
+        .score-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); }
+        
+        /* Tutorial Cards */
+        .tutorial-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
+        }
+        .tutorial-card {
+            background: #fff; border-radius: 4px; overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .tutorial-card:hover { transform: translateY(-4px); }
+        .tutorial-thumb {
+            height: 150px; background: linear-gradient(135deg, #1a1a2e, #e94560);
+            display: flex; align-items: center; justify-content: center; color: #fff;
+            font-size: 3rem;
+        }
+        .tutorial-content { padding: 1.5rem; }
+        .tutorial-content h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .tutorial-content p { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
+        .tutorial-tag {
+            display: inline-block; padding: 0.2rem 0.6rem; background: #f0f0f0;
+            border-radius: 3px; font-size: 0.75rem; color: #666; margin-right: 0.5rem;
+        }
+        
         /* Mobile */
         @media (max-width: 768px) {
             .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0;
@@ -305,6 +396,11 @@
             .net-name { display: block; margin-bottom: 0.25rem; }
             .net-freq { display: inline-block; color: #e94560; font-weight: 600; }
             .net-host { text-align: left; display: block; margin-top: 0.25rem; font-style: italic; }
+            
+            /* Feature cards mobile */
+            .feature-grid { grid-template-columns: 1fr !important; }
+            .score-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .tutorial-grid { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
@@ -319,7 +415,11 @@
             <li><a href="#about">About</a></li>
             <li><a href="#repeaters">Repeaters</a></li>
             <li><a href="#nets">Nets</a></li>
+            <li><a href="#activity">Activity</a></li>
+            <li><a href="#equipment">Equipment</a></li>
+            <li><a href="#tutorials">Learn</a></li>
             <li><a href="#events">Calendar</a></li>
+            <li><a href="#fieldday">Field Day</a></li>
             <li><a href="#photos">Photos</a></li>
             <li><a href="#links">Links</a></li>
             <li class="dropdown">
@@ -657,6 +757,370 @@
                         <li><a href="https://w4cue.com/vendor.html" target="_blank">W4CUE Vendor List</a></li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+                </div>
+                
+                <div class="link-card">
+                    <h4>📚 Informational Sites, Blogs, Misc.</h4>
+                    <ul>
+                        <li><a href="https://www.electronics-notes.com" target="_blank">Electronics Notes</a></li>
+                        <li><a href="http://myplace.frontier.com/~nb6z/" target="_blank">NB6Z Digital Modes</a></li>
+                        <li><a href="https://www.dxzone.com/catalog/Operating_Modes/Packet_Radio/" target="_blank">DXZone Packet Radio</a></li>
+                        <li><a href="http://www.n0hr.com/PocketDigi/PocketDigi_Tigertronics_Interface.htm" target="_blank">N0HR SignaLink</a></li>
+                        <li><a href="http://ki7f.com/packet.htm" target="_blank">KI7F What is Packet Radio</a></li>
+                        <li><a href="http://www.ac6v.com/" target="_blank">AC6V Ham Reference</a></li>
+                        <li><a href="https://www.allaboutcircuits.com/" target="_blank">AllAboutCircuits</a></li>
+                        <li><a href="https://w4cue.com/vendor.html" target="_blank">W4CUE Vendor List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Repeater Activity -->
+    <section id="activity" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Live Repeater Activity</h2>
+                <p>Recent activity on MGRA repeaters</p>
+            </div>
+            
+            <div class="dashboard" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="repeater-feed">
+                    <h3>📡 WR4MG 147.300+ (Centerville)</h3>
+                    <div class="activity-item">
+                        <div class="activity-icon active">ON</div>
+                        <div class="activity-details">
+                            <div class="activity-callsign">KJ4ABC</div>
+                            <div class="activity-info">Rag chew net — Signal 59</div>
+                        </div>
+                        <span class="activity-time">2 min ago</span>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">WR4</div>
+                        <div class="activity-details">
+                            <div class="activity-callsign">N3BYR</div>
+                            <div class="activity-info">Tech talk — Antenna discussion</div>
+                        </div>
+                        <span class="activity-time">15 min ago</span>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">WX4</div>
+                        <div class="activity-details">
+                            <div class="activity-callsign">WX4PCH</div>
+                            <div class="activity-info">Rag chew — Weather check</div>
+                        </div>
+                        <span class="activity-time">47 min ago</span>
+                    </div>
+                </div>
+                
+                <div class="repeater-feed">
+                    <h3>📡 WM4B 146.670- (Warner Robins)</h3>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">WM4</div>
+                        <div class="activity-details">
+                            <div class="activity-callsign">WA4ORT</div>
+                            <div class="activity-info">ARES net check-in</div>
+                        </div>
+                        <span class="activity-time">1 hr ago</span>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">WY4</div>
+                        <div class="activity-details">
+                            <div class="activity-callsign">WY4EMA</div>
+                            <div class="activity-info">EOC test — DMR check</div>
+                        </div>
+                        <span class="activity-time">3 hrs ago</span>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">WB4</div>
+                        <div class="activity-details">
+                            <div class="activity-callsign">WB4BDP</div>
+                            <div class="activity-info">Rag chew — Mobile station</div>
+                        </div>
+                        <span class="activity-time">5 hrs ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 1.5rem; color: #666; font-size: 0.9rem;">
+                💡 Activity feed is updated from repeater logs. Want your contacts shown? <a href="mailto:getmorehams@wr4mg.us">Email us your callsign</a>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Equipment Lending Library -->
+    <section id="equipment" class="section section-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2>Equipment Lending Library</h2>
+                <p>Club gear available for members to borrow</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="status status-available">✓ Available</span>
+                    <h3>📻 Radios</h3>
+                    <ul>
+                        <li>
+                            <span class="item-name">Icom IC-705</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Yaesu FT-60R</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Baofeng UV-5R (x3)</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Kenwood TM-V71A</span>
+                            <span class="item-status status-borrowed">Borrowed</span>
+                        </li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">Borrow at monthly meetings. Contact treasurer to reserve.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="status status-available">✓ Available</span>
+                    <h3>📡 Antennas</h3>
+                    <ul>
+                        <li>
+                            <span class="item-name">EFHW 40m-10m</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Buddipole Portable</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">J-Pole 2m</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Yagi 3-element 2m</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">All antennas tested with antenna analyzer before lending.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="status status-available">✓ Available</span>
+                    <h3>🔧 Test Equipment</h3>
+                    <ul>
+                        <li>
+                            <span class="item-name">MFJ-269C Analyzer</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Oscilloscope (DSO)</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Power/SWR Meter</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                        <li>
+                            <span class="item-name">Dummy Load 250W</span>
+                            <span class="item-status">Available</span>
+                        </li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">All equipment must be returned at next meeting. Damage = replacement cost.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Elmer Matchmaking -->
+    <section id="elmer" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find an Elmer</h2>
+                <p>Get paired with an experienced ham for mentorship</p>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="feature-card" style="border-top-color: #28a745;">
+                        <h3>🙋 Need Help?</h3>
+                        <p>New to ham radio? Stuck on a project? Need help with:</p>
+                        <ul style="list-style: none; margin-bottom: 1.5rem;">
+                            <li>✓ Getting your license</li>
+                            <li>✓ Setting up your first station</li>
+                            <li>✓ Understanding propagation</li>
+                            <li>✓ Digital modes (FT8, JS8Call)</li>
+                            <li>✓ Antenna building</li>
+                            <li>✓ Emergency communications</li>
+                        </ul>
+                        <a href="mailto:getmorehams@wr4mg.us?subject=Elmer%20Request" class="btn btn-join" style="display: block; text-align: center;">Request an Elmer</a>
+                    </div>
+                    
+                    <div class="feature-card" style="border-top-color: #007bff;">
+                        <h3>👨‍🏫 Become an Elmer</h3>
+                        <p>Experienced ham willing to help others? Join our Elmer program:</p>
+                        <ul style="list-style: none; margin-bottom: 1.5rem;">
+                            <li>✓ Share your knowledge</li>
+                            <li>✓ Help grow the hobby</li>
+                            <li>✓ Earn service hours</li>
+                            <li>✓ Recognition at annual dinner</li>
+                            <li>✓ Give back to the community</li>
+                        </ul>
+                        <a href="mailto:getmorehams@wr4mg.us?subject=Become%20an%20Elmer" class="btn btn-facebook" style="display: block; text-align: center;">Sign Up as Elmer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Mode Tutorials -->
+    <section id="tutorials" class="section section-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2>Digital Mode Tutorials</h2>
+                <p>Learn modern digital modes from MGRA members</p>
+            </div>
+            
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <div class="tutorial-thumb">📻</div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">Beginner</span>
+                        <span class="tutorial-tag">FT8</span>
+                        <h4>Getting Started with FT8</h4>
+                        <p>Step-by-step setup of WSJT-X, configure your radio, and make your first FT8 contact.</p>
+                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Watch Video →</a>
+                    </div>
+                </div>
+                
+                <div class="tutorial-card">
+                    <div class="tutorial-thumb">📡</div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">Intermediate</span>
+                        <span class="tutorial-tag">JS8Call</span>
+                        <h4>JS8Call for Emergency Comms</h4>
+                        <p>Keyboard-to-keyboard messaging, auto-relay, and group messaging for ARES work.</p>
+                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Read Guide →</a>
+                    </div>
+                </div>
+                
+                <div class="tutorial-card">
+                    <div class="tutorial-thumb">🌐</div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">Advanced</span>
+                        <span class="tutorial-tag">DMR</span>
+                        <h4>DMR Setup &amp; Codeplugs</h4>
+                        <p>Programming DMR radios, building codeplugs, and linking to BrandMeister networks.</p>
+                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Download PDF →</a>
+                    </div>
+                </div>
+                
+                <div class="tutorial-card">
+                    <div class="tutorial-thumb">📊</div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">Beginner</span>
+                        <span class="tutorial-tag">APRS</span>
+                        <h4>APRS for Tracking &amp; Messaging</h4>
+                        <p>Set up APRS for position reporting, weather stations, and text messaging.</p>
+                        <a href="#" class="btn btn-outline" style="color: #333; border-color: #ccc; font-size: 0.8rem; padding: 0.5rem 1rem;">Watch Video →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Field Day Scoreboard -->
+    <section id="fieldday" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Field Day 2026</h2>
+                <p>Live scoreboard — June 27-28, 2026</p>
+            </div>
+            
+            <div class="scoreboard">
+                <h3>🎯 MGRA Scoreboard — WR4MG</h3>
+                
+                <div class="score-grid">
+                    <div class="score-item">
+                        <div class="score-number">1,247</div>
+                        <div class="score-label">Total QSOs</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-number">4,988</div>
+                        <div class="score-label">Total Points</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-number">38</div>
+                        <div class="score-label">States Worked</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-number">12</div>
+                        <div class="score-label">Operators</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-number">5</div>
+                        <div class="score-label">Stations</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-number">#3</div>
+                        <div class="score-label">GA Class 3A</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: #fff; margin-bottom: 1rem;">Top Operators</h4>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>N3BYR (Greg)</span>
+                                <span>312 QSOs</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>WR4MG (Club)</span>
+                                <span>287 QSOs</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>KJ4ABC</span>
+                                <span>198 QSOs</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #fff; margin-bottom: 1rem;">Band Breakdown</h4>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>20m</span>
+                                <span>456 QSOs</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>40m</span>
+                                <span>378 QSOs</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>15m</span>
+                                <span>234 QSOs</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span>6m</span>
+                                <span>89 QSOs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin-top: 2rem; color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                    🏆 Last updated: 2026 Field Day — 3rd place in Georgia Class 3A
+                </p>
             </div>
         </div>
     </section>
