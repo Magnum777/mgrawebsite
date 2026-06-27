@@ -341,53 +341,6 @@
         .score-number { font-size: 2rem; font-weight: 700; color: #e94560; }
         .score-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); }
         
-        /* AI & Digital Setup Section */
-        .ai-setup-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-        }
-        .ai-intro {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff; border-radius: 4px; padding: 2.5rem;
-        }
-        .ai-intro h3 { color: #fff; font-size: 1.4rem; margin-bottom: 1rem; }
-        .ai-intro p { color: rgba(255,255,255,0.8); margin-bottom: 1rem; line-height: 1.7; }
-        .ai-intro .highlight { color: #e94560; font-weight: 600; }
-        
-        .setup-steps {
-            list-style: none; counter-reset: step;
-        }
-        .setup-steps li {
-            position: relative; padding-left: 3rem; padding-bottom: 1.5rem;
-            border-left: 2px solid #e94560; margin-left: 1rem;
-        }
-        .setup-steps li:last-child { border-left: 2px solid transparent; }
-        .setup-steps li::before {
-            counter-increment: step; content: counter(step);
-            position: absolute; left: -1rem; top: 0;
-            width: 2rem; height: 2rem; background: #e94560;
-            color: #fff; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.9rem;
-        }
-        .setup-steps h4 { color: #222; font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .setup-steps p { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
-        .setup-steps code {
-            background: #f4f4f4; padding: 0.2rem 0.4rem; border-radius: 3px;
-            font-family: 'Courier New', monospace; font-size: 0.85rem; color: #e94560;
-        }
-        
-        .ai-tools-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .ai-tool-card {
-            background: #fff; border-radius: 4px; padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08); text-align: center;
-        }
-        .ai-tool-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .ai-tool-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
-        .ai-tool-card p { font-size: 0.85rem; color: #666; }
-        
         /* Mobile */
         @media (max-width: 768px) {
             .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0;
@@ -425,8 +378,6 @@
             .feature-grid { grid-template-columns: 1fr !important; }
             .score-grid { grid-template-columns: repeat(2, 1fr) !important; }
             .tutorial-grid { grid-template-columns: 1fr !important; }
-            .ai-setup-grid { grid-template-columns: 1fr !important; }
-            .setup-steps li { padding-left: 0; }
         }
     </style>
 </head>
@@ -442,7 +393,6 @@
             <li><a href="#repeaters">Repeaters</a></li>
             <li><a href="#nets">Nets</a></li>
             <li><a href="#activity">Activity</a></li>
-            <li><a href="#ai-digital">AI &amp; Digital</a></li>
             <li><a href="#events">Calendar</a></li>
             <li><a href="#fieldday">Field Day</a></li>
             <li><a href="#photos">Photos</a></li>
@@ -646,116 +596,6 @@
                     <p>View the complete MGRA calendar for all events, testing sessions, and other engagements.</p>
                     <p>Our calendar includes club meetings, testing sessions, field days, swap meets, and special events throughout the year.</p>
                     <a href="https://calendar.google.com/calendar/embed?src=fd3h7tohut97btcfflsdmpdda4%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" class="btn btn-join">View Full Calendar →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI & Digital Modes with FT-891 -->
-    <section id="ai-digital" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>AI &amp; Digital Modes</h2>
-                <p>How AI interfaces with ham radio and getting your FT-891 on digital</p>
-            </div>
-            
-            <div class="ai-setup-grid">
-                <!-- AI Intro -->
-                <div class="ai-intro">
-                    <h3>🤖 AI + Ham Radio = The Future</h3>
-                    <p>AI is already transforming amateur radio in ways most operators don't realize. From <span class="highlight">automated propagation prediction</span> to <span class="highlight">intelligent logging</span> and <span class="highlight">real-time band analysis</span>, machine learning is making contacts smarter.</p>
-                    
-                    <p><strong>What AI can do for your station:</strong></p>
-                    <ul style="list-style: none; margin-bottom: 1.5rem;">
-                        <li>📡 Predict best bands before you transmit</li>
-                        <li>🎯 Decode weak signals humans miss (FT8/JS8Call)</li>
-                        <li>🗺️ Auto-log QSOs with grid squares &amp; signal reports</li>
-                        <li>📊 Analyze your success patterns by band/mode/time</li>
-                        <li>🤖 Auto-respond to CQ on digital modes</li>
-                        <li>📈 Suggest antenna adjustments for better SWR</li>
-                    </ul>
-                    
-                    <p><strong>The MGRA AI Lab:</strong> We're experimenting with AI-assisted operating. Members get access to propagation forecasts tuned to Middle Georgia, automated spot reporting, and digital mode coaching.</p>
-                </div>
-                
-                <!-- FT-891 Digital Setup -->
-                <div>
-                    <h3 style="margin-bottom: 1.5rem; color: #222;">📻 Getting Your FT-891 on Digital</h3>
-                    
-                    <p style="color: #555; margin-bottom: 1.5rem;">Your Yaesu FT-891 is <strong>perfectly capable</strong> of FT8, JS8Call, PSK31, and more. Here's the exact setup:</p>
-                    
-                    <ol class="setup-steps">
-                        <li>
-                            <h4>Download &amp; Install Drivers</h4>
-                            <p>Get the <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">Silicon Labs CP210x drivers</a> for the FT-891's built-in USB CAT control.</p>
-                            <p>Install <a href="https://physics.princeton.edu/pulsar/k1jt/wsjtx.html" target="_blank">WSJT-X</a> for FT8/FT4 or <a href="https://js8call.com/" target="_blank">JS8Call</a> for keyboard-to-keyboard.</p>
-                        </li>
-                        
-                        <li>
-                            <h4>Connect USB Cable</h4>
-                            <p>Use a <strong>USB A-to-B printer cable</strong> to the back panel USB port. <strong>NOT</strong> the 8-pin Mini-DIN — that's for audio only.</p>
-                            <p>Check Device Manager for two new COM ports. Note the <strong>higher number</strong> for CAT control.</p>
-                        </li>
-                        
-                        <li>
-                            <h4>Radio Menu Settings</h4>
-                            <p><code>MENU &gt; 05-06 CAT RATE</code> → Set to <strong>4800 baud</strong> (or higher, but match in software)</p>
-                            <p><code>MENU &gt; 05-07 CAT RTS</code> → Set to <strong>ENABLE</strong> for PTT via CAT</p>
-                            <p><code>MENU &gt; 08-01 DATA MODE</code> → Set to <strong>OTHERS</strong> (not PSK)</p>
-                            <p><code>MENU &gt; 08-03 OTHER DISP</code> → Set to <strong>1500 Hz</strong></p>
-                        </li>
-                        
-                        <li>
-                            <h4>WSJT-X Configuration</h4>
-                            <p>Go to <strong>File &gt; Settings &gt; Radio</strong>:</p>
-                            <p>• Rig: <code>Yaesu FT-891</code></p>
-                            <p>• CAT Port: <code>COM X</code> (higher COM number)</p>
-                            <p>• Baud: Match radio (4800 or higher)</p>
-                            <p>• PTT: <code>CAT</code> (not RTS)</p>
-                            <p>• Audio: USB Audio CODEC (from rear panel)</p>
-                        </li>
-                        
-                        <li>
-                            <h4>Audio Levels &amp; First Contact</h4>
-                            <p>Set <code>DATA GAIN</code> knob to about 9 o'clock. Adjust in Windows sound settings until waterfall shows clear signals.</p>
-                            <p>Enable <strong>"DX Call"</strong> in WSJT-X, double-click a CQ, hit <strong>Enable Tx</strong>. Your FT-891 is now working FT8!</p>
-                        </li>
-                    </ol>
-                    
-                    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; margin-top: 1.5rem; border-radius: 4px;">
-                        <p style="margin: 0; color: #856404; font-size: 0.95rem;">
-                            <strong>💡 MGRA Pro Tip:</strong> Our club has a Digimode-4 interface and spare SignaLink for members to borrow. <a href="mailto:getmorehams@wr4mg.us">Email us</a> to check one out for Field Day or your first digital experiments.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- AI Tools Grid -->
-            <h3 style="text-align: center; margin: 3rem 0 1.5rem; color: #222;">AI Tools for Your Shack</h3>
-            
-            <div class="ai-tools-grid">
-                <div class="ai-tool-card">
-                    <div class="icon">🌐</div>
-                    <h4>PSK Reporter</h4>
-                    <p>Real-time global FT8 spots. See who's hearing you worldwide.</p>
-                </div>
-                
-                <div class="ai-tool-card">
-                    <div class="icon">📡</div>
-                    <h4>HamClock</h4>
-                    <p>Solar data, grayline, DX cluster — all on one screen.</p>
-                </div>
-                
-                <div class="ai-tool-card">
-                    <div class="icon">🤖</div>
-                    <h4>GridTracker</grid>
-                    <p>Auto-log QSOs, plot grids worked, chase DXCC.</p>
-                </div>
-                
-                <div class="ai-tool-card">
-                    <div class="icon">📊</div>
-                    <h4>QRZ.com API</h4>
-                    <p>Instant callsign lookup, auto-fill name/QTH/grid.</p>
                 </div>
             </div>
         </div>
